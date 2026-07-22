@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Aesthetic Shopping</title>
+    <link rel="stylesheet" href="ex22.css">
+    <style>
+        #div1 {
+            width: 100%;
+            max-width: 800px;
+            height: 200px;
+            padding: 10px;
+            border: 1px solid black;
+            margin: 0 auto;
+        }
+        .cart { 
+            border: 2px dashed black;
+            width: 320px;
+            height: 120px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .heading {
+            background-color: rgba(224, 191, 114, 0.716);
+            text-align: center;
+            padding: 10px;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        td { vertical-align: top; padding: 8px; }
+        img { display: block; margin: 0 auto; }
+    </style>
+    <script>
+        function during_dragdrop(e) {
+            e.preventDefault();
+        }
+        function begin_drag(e) {
+            e.dataTransfer.setData("text/plain", e.target.id);
+        }
+        function end_drop(e) {
+            e.preventDefault();
+            var code = e.dataTransfer.getData("text/plain");
+            var original = document.getElementById(code);
+            if (!original) return;
+            var copy = original.cloneNode(true);
+            copy.id = "copy_" + new Date().getTime();
+            copy.draggable = true;
+            e.target.appendChild(copy);
+        }
+
+        function getLocation() {
+            var x = document.getElementById("demo");
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(pos){
+                    x.innerHTML = "Latitude: " + pos.coords.latitude + "<br>Longitude: " + pos.coords.longitude;
+                }, function(){ x.innerHTML = 'Unable to retrieve location.'; });
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+    </script>
+</head>
+<body bgcolor="beige">
+
+    <div style="text-align:center;">
+        <img src="logo.jpg" height="120" width="210" alt="Logo">
+        <h1 style="color:black">AESTHETIC SHOPPING</h1>
+        <hr>
+        <img src="banner1.jpg" height="200" width="700" alt="Product" usemap="#product">
+        <map name="product">
+            <area shape="rect" coords="0,1,272,344" alt="shirt" href="#shirt">
+            <area shape="rect" coords="278,1,503,299" alt="pants" href="#pants">
+            <area shape="rect" coords="500,3,741,300" alt="blazzer" href="#blazers">
+        </map>
+        <hr>
+    </div>
+
+    <section id="shirt">
+        <div class="heading"><h3>SHIRTS</h3></div>
+        <table border="1">
+            <tr>
+                <td align="center"><img id="drag" src="shirt1.jpg" height="200" width="200" draggable="true" ondragstart="begin_drag(event)"><h4>FLOW LENIN SHIRT</h4>
+                    <video width="250" height="150" controls><source src="vid1.mp4" type="video/mp4"></video>
+                </td>
+                <td align="center"><img id="drag1" src="shirt2.jpg" height="200" width="200" draggable="true" ondragstart="begin_drag(event)"><h4>Shirt Model 2</h4>
+                    <video width="250" height="150" controls><source src="vid1.mp4" type="video/mp4"></video>
+                </td>
+                <td align="center"><img id="drag2" src="shirt3.jpg" height="200" width="200" draggable="true" ondragstart="begin_drag(event)"><h4>Shirt Model 3</h4>
+                    <video width="250" height="150" controls><source src="vid1.mp4" type="video/mp4"></video>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="pants">
+        <div class="heading"><h3>PANTS</h3></div>
+        <table border="1">
+            <tr>
+                <td align="center"><img id="drag3" src="pant1.jpg" height="200" width="200" draggable="true" ondragstart="begin_drag(event)"><h4>Pants Model 1</h4>
+                    <video width="250" height="150" controls><source src="vid1.mp4" type="video/mp4"></video>
+                </td>
+                <td align="center"><img id="drag4" src="pant2.jpg" height="200" width="200" draggable="true" ondragstart="begin_drag(event)"><h4>Pants Model 2</h4>
+                    <video width="250" height="150" controls><source src="vid1.mp4" type="video/mp4"></video>
+                </td>
+                <td align="center"><img id="drag5" src="pant3.jpg" height="200" width="200" draggable="true" ondragstart="begin_drag(event)"><h4>Pants Model 3</h4>
+                    <video width="250" height="150" controls><source src="vid1.mp4" type="video/mp4"></video>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <section id="blazers">
+        <div class="heading"><h3>BLAZERS</h3></div>
+        <table border="1">
+            <tr>
+                <td align="center"><img id="drag6" src="blazzer1.jpg" height="200" width="200" draggable="true" ondragstart="begin_drag(event)"><h4>Portugal blazzer</h4>
+                    <video width="250" height="150" controls><source src="vid1.mp4" type="video/mp4"></video>
+                </td>
+                <td align="center"><img id="drag7" src="blazzer2.jpg" height="200" width="200" draggable="true" ondragstart="begin_drag(event)"><h4>Brazil blazzer</h4>
+                    <video width="250" height="150" controls><source src="vid1.mp4" type="video/mp4"></video>
+                </td>
+                <td align="center"><img id="drag8" src="blazzer3.jpg" height="200" width="200" draggable="true" ondragstart="begin_drag(event)"><h4>England blazzer</h4>
+                    <video width="250" height="150" controls><source src="vid1.mp4" type="video/mp4"></video>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <hr>
+    <h3 style="text-align:center">ADD TO CART</h3>
+    <div class="cart" ondrop="end_drop(event)" ondragover="during_dragdrop(event)" style="width:500px;height: 300px;px;margin:0 auto;">
+        <div id="div1" style="height:100%;"></div>
+    </div>
+
+    <hr>
+    <h2 style="text-align:center">PAYMENT DETAILS</h2>
+    <div style="max-width:600px;margin:0 auto;">
+        <ul style="list-style:none;padding:0;">
+            <li><label><b>Name:</b> <input type="text" size="20" value=""></label></li>
+            <li><label><b>E-mail:</b> <input type="email" size="20" value=""></label></li>
+            <li><label><b>Ph No:</b> <input type="tel" size="20" value=""></label></li>
+            <li><b>Total:</b> $2500</li>
+            <li>
+                <label><b>Select Payment Mode:</b>
+                    <select name="Mymenu">
+                        <option value="UPI">UPI</option>
+                        <option value="Net Banking">Net Banking</option>
+                    </select>
+                </label>
+            </li>
+            <li><button type="button">PLACE ORDER</button></li>
+        </ul>
+    </div>
+
+    <div style="text-align:center;margin-top:20px;">
+        <button type="button" onclick="getLocation()">Show My Location</button>
+        <p id="demo"></p>
+    </div>
+
+</body>
+</html>
